@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thought Pilot — End-to-end content execution, engineered to compound</title>
+<meta name="description" content="End-to-end content execution for B2B, SaaS, and AI founders on X and LinkedIn. Built on our own AI. Run by operators. Ghostwritten in your voice. Shipped daily." />
+<meta name="theme-color" content="#0b0b0d" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Thought Pilot — AI-native content studio" />
+<meta property="og:description" content="Audience and pipeline, engineered to compound. Run by operators. Ghostwritten in your voice. Shipped daily." />
+<meta property="og:type" content="website" />
+
+<!-- Favicon: TP monogram -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ffffff'/%3E%3Crect x='11' y='13' width='11' height='10' fill='%230b0b0d'/%3E%3Crect x='22' y='13' width='10' height='30' fill='%230b0b0d'/%3E%3Crect x='36' y='13' width='10' height='10' fill='%230b0b0d'/%3E%3Crect x='22' y='31' width='10' height='23' fill='%238e7cd8'/%3E%3Cpath fill='%238e7cd8' fill-rule='evenodd' d='M32 31h11a8 8 0 0 1 0 16H32V31Zm8 6h3a2 2 0 0 1 0 4h-3v-4Z'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   THOUGHT PILOT — Premium landing page
+   Design language combined from three agency inspirations:
+   bold editorial hero, numbered framework, big result stats,
+   marquee, solutions grid, layered footer.
+   ============================================================ */
+
+:root{
+  --bg:#0b0b0d;
+  --bg-1:#101014;
+  --bg-2:#15151b;
+  --ink:#f2f0ea;
+  --ink-2:#b6b4ac;
+  --ink-3:#807e77;
+  --line:rgba(242,240,234,.10);
+  --line-2:rgba(242,240,234,.16);
+  --purple:#8e7cd8;
+  --purple-bright:#a897ee;
+  --purple-deep:#6a58b8;
+  --purple-glow:rgba(142,124,216,.35);
+  --cream:#f4f2ec;
+
+  --font-display:"Bricolage Grotesque","Inter",system-ui,-apple-system,sans-serif;
+  --font-sans:"Inter",system-ui,-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --pad:clamp(20px,5vw,64px);
+  --maxw:1280px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.6;
+  letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:var(--purple);color:#0b0b0d}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* Grain + ambient glow layer */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60vw 60vw at 78% -10%, rgba(142,124,216,.16), transparent 60%),
+    radial-gradient(50vw 50vw at -10% 30%, rgba(142,124,216,.08), transparent 60%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);position:relative;z-index:2}
+
+/* ---------- Typography helpers ---------- */
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--purple-bright);
+  display:inline-flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--purple);opacity:.7}
+.display{
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:.98;
+  letter-spacing:-.03em;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .4s var(--ease),border-color .4s var(--ease),backdrop-filter .4s;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(11,11,13,.72);
+  backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:var(--maxw);margin:0 auto;
+  padding:16px var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:-.02em}
+.brand svg{width:34px;height:34px;flex:none}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{
+  font-size:14px;color:var(--ink-2);letter-spacing:0;
+  position:relative;transition:color .25s;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--purple);transition:width .3s var(--ease);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active{color:var(--ink)}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:#0b0b0d;font-weight:600;font-size:14px;
+  padding:11px 20px;border-radius:100px;
+  transition:transform .3s var(--ease),background .3s;
+}
+.nav-cta:hover{transform:translateY(-2px);background:var(--purple-bright);color:#0b0b0d}
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px}
+.nav-toggle span{width:24px;height:2px;background:var(--ink);transition:.3s}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;padding:calc(clamp(120px,18vh,180px)) 0 60px}
+.hero-eyebrow{margin-bottom:28px}
+.hero h1{
+  font-size:clamp(44px,8.4vw,118px);
+  max-width:15ch;
+  margin-bottom:34px;
+}
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--purple-bright),var(--purple) 55%,var(--cream));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{
+  font-size:clamp(17px,1.5vw,21px);
+  color:var(--ink-2);
+  max-width:56ch;
+  line-height:1.55;
+  margin-bottom:44px;
+}
+.hero-sub b{color:var(--ink);font-weight:500}
+.hero-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:600;font-size:15px;border-radius:100px;
+  padding:16px 28px;transition:transform .3s var(--ease),background .3s,border-color .3s,color .3s;
+}
+.btn-primary{background:var(--purple);color:#0b0b0d}
+.btn-primary:hover{transform:translateY(-3px);background:var(--purple-bright);box-shadow:0 16px 40px -12px var(--purple-glow)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--ink)}
+.btn-ghost:hover{transform:translateY(-3px);border-color:var(--purple);color:var(--purple-bright)}
+.btn .arw{transition:transform .3s var(--ease)}
+.btn:hover .arw{transform:translate(3px,-3px)}
+.btn-primary:hover .arw,.btn-down:hover .arw{transform:translateY(3px)}
+
+/* stats */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,3vw,40px);
+  margin-top:clamp(56px,8vh,96px);
+  padding-top:44px;border-top:1px solid var(--line);
+}
+.stat .num{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(38px,5.6vw,72px);line-height:1;letter-spacing:-.04em;
+  background:linear-gradient(180deg,var(--ink),#c8c5be);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat .lbl{margin-top:12px;color:var(--ink-3);font-size:14px;font-family:var(--font-mono);letter-spacing:.02em}
+
+/* scroll cue */
+.scrollcue{
+  display:inline-flex;align-items:center;gap:10px;margin-top:52px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);
+}
+.scrollcue .dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:26px 0;overflow:hidden;background:rgba(142,124,216,.04);
+  margin-top:clamp(60px,10vh,120px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.marquee-track{display:flex;width:max-content;animation:scroll 34s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(20px,2.6vw,34px);letter-spacing:-.02em;color:var(--ink);
+  display:inline-flex;align-items:center;white-space:nowrap;
+}
+.marquee-track .sep{color:var(--purple);margin:0 26px;font-size:.8em}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============================================================
+   SECTION SCAFFOLD
+   ============================================================ */
+section{position:relative;padding:clamp(80px,12vh,150px) 0}
+.sec-head{max-width:900px;margin-bottom:clamp(48px,7vh,84px)}
+.sec-num{
+  font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;color:var(--purple-bright);
+  text-transform:uppercase;margin-bottom:24px;display:block;
+}
+.sec-title{
+  font-size:clamp(32px,5.2vw,66px);
+  line-height:1.02;letter-spacing:-.03em;
+}
+.sec-title .dim{color:var(--ink-3)}
+.sec-lead{margin-top:26px;font-size:clamp(16px,1.4vw,19px);color:var(--ink-2);max-width:60ch}
+
+/* ============================================================
+   01 · THE PITCH  (+ pipeline)
+   ============================================================ */
+.pitch-body{font-size:clamp(16px,1.4vw,19px);color:var(--ink-2);max-width:62ch}
+.pitch-body strong{color:var(--ink);font-weight:500}
+.pitch-body p+p{margin-top:20px}
+
+.pipeline{
+  margin-top:clamp(48px,7vh,80px);
+  border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);
+  padding:clamp(24px,4vw,44px);
+}
+.pipeline-label{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:28px}
+.pipeline-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:12px}
+.node{
+  flex:1 1 150px;min-width:130px;
+  border:1px solid var(--line);border-radius:14px;
+  padding:22px 20px;background:var(--bg-1);
+  transition:transform .4s var(--ease),border-color .4s,background .4s;
+  position:relative;overflow:hidden;
+}
+.node::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,rgba(142,124,216,.14),transparent 70%);opacity:0;transition:opacity .4s}
+.node:hover{transform:translateY(-6px);border-color:var(--line-2);background:var(--bg-2)}
+.node:hover::before{opacity:1}
+.node .k{font-family:var(--font-mono);font-size:12px;color:var(--purple-bright);margin-bottom:14px}
+.node .n{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:-.02em;position:relative}
+.node-arrow{display:flex;align-items:center;color:var(--purple);flex:none;align-self:center}
+@media(max-width:760px){.node-arrow{transform:rotate(90deg)}.pipeline-flow{flex-direction:column}.node{flex:none}}
+
+/* ============================================================
+   02 · WHY IT WORKS  (P.01/02/03)
+   ============================================================ */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,26px)}
+.pcard{
+  border:1px solid var(--line);border-radius:20px;
+  padding:clamp(26px,3vw,38px);
+  background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,0));
+  display:flex;flex-direction:column;
+  transition:transform .5s var(--ease),border-color .5s,background .5s;
+  position:relative;overflow:hidden;
+}
+.pcard::after{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:linear-gradient(90deg,var(--purple),transparent);transition:width .6s var(--ease)}
+.pcard:hover{transform:translateY(-8px);border-color:var(--line-2);background:linear-gradient(180deg,rgba(142,124,216,.06),rgba(255,255,255,0))}
+.pcard:hover::after{width:100%}
+.pcard .pk{font-family:var(--font-mono);font-size:13px;color:var(--purple-bright);letter-spacing:.08em;margin-bottom:auto}
+.pcard h3{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-.02em;line-height:1.08;margin:44px 0 16px}
+.pcard p{color:var(--ink-2);font-size:15px;line-height:1.6}
+.pcard .big-index{position:absolute;right:22px;top:14px;font-family:var(--font-display);font-weight:700;font-size:76px;color:rgba(242,240,234,.04);line-height:1;pointer-events:none}
+
+/* ============================================================
+   03 · THE EDGE  (Signal/Scoring/Voice/Loop)
+   ============================================================ */
+.edge-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,24px)}
+.edge{
+  border:1px solid var(--line);border-radius:18px;padding:clamp(26px,3vw,40px);
+  background:var(--bg-1);
+  display:flex;gap:22px;align-items:flex-start;
+  transition:transform .45s var(--ease),border-color .45s,background .45s;
+}
+.edge:hover{transform:translateY(-6px);border-color:var(--line-2);background:var(--bg-2)}
+.edge .ico{
+  flex:none;width:52px;height:52px;border-radius:13px;
+  display:grid;place-items:center;
+  background:rgba(142,124,216,.12);border:1px solid rgba(142,124,216,.28);color:var(--purple-bright);
+}
+.edge h3{font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.02em;margin-bottom:10px}
+.edge p{color:var(--ink-2);font-size:15px;line-height:1.6}
+
+/* ============================================================
+   04 · DELIVERABLES
+   ============================================================ */
+.deliver-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,28px)}
+.channel{
+  border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.025),transparent);
+  transition:transform .5s var(--ease),border-color .5s;
+}
+.channel:hover{transform:translateY(-6px);border-color:var(--line-2)}
+.channel-head{
+  padding:clamp(26px,3vw,38px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:18px;
+}
+.channel-badge{
+  flex:none;width:56px;height:56px;border-radius:15px;display:grid;place-items:center;
+  background:var(--ink);color:#0b0b0d;
+}
+.channel-badge svg{width:28px;height:28px}
+.channel-head h3{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:-.02em}
+.channel-head .sub{color:var(--purple-bright);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;margin-top:4px}
+.channel ul{list-style:none;padding:clamp(22px,3vw,34px)}
+.channel li{
+  display:flex;gap:14px;align-items:flex-start;padding:14px 0;
+  border-bottom:1px solid var(--line);color:var(--ink);font-size:15.5px;
+}
+.channel li:last-child{border-bottom:none}
+.channel li::before{
+  content:"";flex:none;width:7px;height:7px;border-radius:2px;margin-top:8px;
+  background:var(--purple);transform:rotate(45deg);
+}
+.deliver-note{
+  margin-top:34px;text-align:center;color:var(--ink-2);font-size:15px;
+}
+.deliver-note b{color:var(--ink);font-weight:500}
+
+/* ============================================================
+   05 · WHO IT'S FOR
+   ============================================================ */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px)}
+.who{
+  border:1px solid var(--line);border-radius:20px;padding:clamp(28px,3vw,40px);
+  background:var(--bg-1);position:relative;overflow:hidden;
+  transition:transform .5s var(--ease),border-color .5s,background .5s;
+}
+.who:hover{transform:translateY(-8px);border-color:var(--line-2);background:var(--bg-2)}
+.who .tag{
+  font-family:var(--font-mono);font-weight:500;font-size:13px;letter-spacing:.1em;
+  color:#0b0b0d;background:var(--purple);
+  display:inline-flex;padding:6px 12px;border-radius:8px;margin-bottom:26px;
+}
+.who h3{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.2vw,27px);letter-spacing:-.02em;margin-bottom:14px}
+.who p{color:var(--ink-2);font-size:15px;line-height:1.62}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta{
+  border-top:1px solid var(--line);
+  padding:clamp(90px,15vh,170px) 0;position:relative;overflow:hidden;text-align:center;
+}
+.cta::before{
+  content:"";position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);
+  width:min(760px,90vw);height:min(760px,90vw);border-radius:50%;
+  background:radial-gradient(circle,var(--purple-glow),transparent 62%);filter:blur(10px);z-index:0;
+}
+.cta .wrap{z-index:2}
+.cta .eyebrow{margin-bottom:30px}
+.cta h2{
+  font-family:var(--font-display);font-weight:600;
+  font-size:clamp(38px,7vw,92px);line-height:.98;letter-spacing:-.035em;
+  max-width:16ch;margin:0 auto 26px;
+}
+.cta h2 .grad{background:linear-gradient(100deg,var(--purple-bright),var(--cream));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta p{color:var(--ink-2);font-size:clamp(16px,1.5vw,19px);max-width:52ch;margin:0 auto 44px}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{border-top:1px solid var(--line);padding:60px 0 40px;position:relative;z-index:2}
+.footer-top{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.footer-brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:20px}
+.footer-brand svg{width:36px;height:36px}
+.footer-links{display:flex;gap:28px;flex-wrap:wrap}
+.footer-links a{color:var(--ink-2);font-size:14px;transition:color .25s}
+.footer-links a:hover{color:var(--purple-bright)}
+.footer-bottom{padding-top:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ink-3);font-size:13px;font-family:var(--font-mono);letter-spacing:.02em}
+
+/* ============================================================
+   REVEAL ANIMATIONS
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.reveal.in{opacity:1;transform:none;filter:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+[data-delay="4"]{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none;filter:none}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:980px){
+  .why-grid,.who-grid{grid-template-columns:1fr 1fr}
+  .edge-wrap,.deliver-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .nav-links{
+    position:fixed;inset:0 0 0 auto;width:min(80vw,320px);
+    flex-direction:column;align-items:flex-start;justify-content:center;gap:24px;
+    background:var(--bg-1);padding:40px;
+    transform:translateX(100%);transition:transform .4s var(--ease);
+    border-left:1px solid var(--line);
+  }
+  .nav-links.open{transform:none}
+  .nav-links .nav-cta{margin-top:12px}
+  .nav-toggle{display:flex}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle.open span:nth-child(2){opacity:0}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .stats{grid-template-columns:1fr;gap:28px}
+  .why-grid,.who-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV ============================== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Thought Pilot home">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="11" y="13" width="11" height="10" fill="currentColor"/>
+        <rect x="22" y="13" width="10" height="30" fill="currentColor"/>
+        <rect x="36" y="13" width="10" height="10" fill="currentColor"/>
+        <rect x="22" y="31" width="10" height="23" fill="#8e7cd8"/>
+        <path fill="#8e7cd8" fill-rule="evenodd" d="M32 31h11a8 8 0 0 1 0 16H32V31Zm8 6h3a2 2 0 0 1 0 4h-3v-4Z"/>
+      </svg>
+      <span>Thought Pilot</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#approach">Approach</a>
+      <a href="#stack">Stack</a>
+      <a href="#deliverables">Deliverables</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="https://cal.com/thought-pilot-da4joh/30min" target="_blank" rel="noopener">Book a call
+        <svg class="arw" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<!-- ============================== HERO ============================== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow hero-eyebrow reveal">End-to-end content execution</div>
+    <h1 class="display reveal" data-delay="1">
+      Audience and pipeline, <span class="grad">engineered to compound.</span> Run by operators.
+    </h1>
+    <p class="hero-sub reveal" data-delay="2">
+      End-to-end content execution for <b>B2B, SaaS, and AI founders</b> on X and LinkedIn.
+      Ghostwritten in your voice. Shipped daily. While you build the company.
+    </p>
+    <div class="hero-actions reveal" data-delay="3">
+      <a class="btn btn-primary" href="https://cal.com/thought-pilot-da4joh/30min" target="_blank" rel="noopener">Book a call
+        <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+      <a class="btn btn-ghost btn-down" href="#approach">How we work
+        <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+
+    <div class="stats reveal" data-delay="4">
+      <div class="stat"><div class="num" data-count="200" data-suffix="M+">200M+</div><div class="lbl">Impressions generated</div></div>
+      <div class="stat"><div class="num" data-count="100" data-suffix="+">100+</div><div class="lbl">1M-view posts shipped</div></div>
+      <div class="stat"><div class="num">Daily</div><div class="lbl">Output across X + LinkedIn</div></div>
+    </div>
+
+    <div class="scrollcue reveal"><span class="dot"></span>Scroll</div>
+  </div>
+</header>
+
+<!-- ============================== MARQUEE ============================== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>End-to-end execution<i class="sep">●</i>Run by operators<i class="sep">●</i>Trained on what's winning now<i class="sep">●</i>Ghostwritten in your voice<i class="sep">●</i>Engineered to compound<i class="sep">●</i>Shipped daily<i class="sep">●</i></span>
+    <span>End-to-end execution<i class="sep">●</i>Run by operators<i class="sep">●</i>Trained on what's winning now<i class="sep">●</i>Ghostwritten in your voice<i class="sep">●</i>Engineered to compound<i class="sep">●</i>Shipped daily<i class="sep">●</i></span>
+  </div>
+</div>
+
+<!-- ============================== 01 · THE PITCH ============================== -->
+<section id="approach">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num reveal">01 · The pitch</span>
+      <h2 class="sec-title display reveal" data-delay="1">Built on our own AI. <span class="dim">Run by operators.</span></h2>
+    </div>
+    <div class="pitch-body reveal" data-delay="1">
+      <p>Most content agencies hire writers. A handful plug into ChatGPT. <strong>We built our own AI agents and content algorithms from the ground up.</strong> End to end. A small team of operators owns voice, direction, and taste.</p>
+      <p>Less overhead. Sharper output. A loop that gets smarter every week.</p>
+    </div>
+
+    <div class="pipeline reveal" data-delay="2">
+      <div class="pipeline-label">The loop</div>
+      <div class="pipeline-flow">
+        <div class="node"><div class="k">01</div><div class="n">Ingestion</div></div>
+        <div class="node-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="node"><div class="k">02</div><div class="n">Research</div></div>
+        <div class="node-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="node"><div class="k">03</div><div class="n">Writing</div></div>
+        <div class="node-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="node"><div class="k">04</div><div class="n">Scoring</div></div>
+        <div class="node-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="node"><div class="k">05</div><div class="n">Distribution</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 02 · WHY IT WORKS ============================== -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num reveal">02 · Why it works</span>
+      <h2 class="sec-title display reveal" data-delay="1">Three things we do <span class="dim">that nobody else does.</span></h2>
+    </div>
+    <div class="why-grid">
+      <article class="pcard reveal">
+        <span class="big-index">01</span>
+        <div class="pk">P.01</div>
+        <h3>Custom AI agents. In-house algorithms.</h3>
+        <p>Every part of our stack runs on AI we built: ingestion agents, research agents, writing agents, scoring algorithms. Operators set direction and own voice. The output of a ten-person team, without the overhead of one.</p>
+      </article>
+      <article class="pcard reveal" data-delay="1">
+        <span class="big-index">02</span>
+        <div class="pk">P.02</div>
+        <h3>A private intelligence layer per client.</h3>
+        <p>Every account gets a dedicated knowledge base and its own set of agents. Your voice. Your market. The accounts you're competing with. The formats winning this week. We write against the current game, not generic best practices.</p>
+      </article>
+      <article class="pcard reveal" data-delay="2">
+        <span class="big-index">03</span>
+        <div class="pk">P.03</div>
+        <h3>The stack compounds. So does your lead.</h3>
+        <p>Every post, every score, every result sharpens what comes next. The longer you're in, the better the writing gets. This is the loop agencies can't build and tools can't ship. It's the one that matters.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 · THE EDGE ============================== -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num reveal">03 · The edge</span>
+      <h2 class="sec-title display reveal" data-delay="1">Trained on <span class="grad" style="background:linear-gradient(100deg,var(--purple-bright),var(--cream));-webkit-background-clip:text;background-clip:text;color:transparent">what's winning now.</span></h2>
+      <p class="sec-lead reveal" data-delay="2">The content game changes every quarter. Our models change with it. We track what's moving on-platform in real time, score every draft against it, and ship only what clears the bar.</p>
+    </div>
+    <div class="edge-wrap">
+      <div class="edge reveal">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0 1 8-8M12 20a8 8 0 0 0 8-8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v2M12 20v2"/></svg></div>
+        <div><h3>Signal</h3><p>Our scrapers and algorithms track formats, hooks, and patterns performing right now. Per niche. Per platform.</p></div>
+      </div>
+      <div class="edge reveal" data-delay="1">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+        <div><h3>Scoring</h3><p>Every draft runs through our proprietary content algorithms. Weak posts don't leave the studio.</p></div>
+      </div>
+      <div class="edge reveal" data-delay="2">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M6 11a6 6 0 0 0 12 0M12 18v3"/></svg></div>
+        <div><h3>Voice</h3><p>A voice model per client. Your rhythm, your vocabulary, your take. Captured and reinforced.</p></div>
+      </div>
+      <div class="edge reveal" data-delay="3">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5"/></svg></div>
+        <div><h3>Loop</h3><p>Performance feeds back into the stack weekly. The longer you're with us, the sharper the writing.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 · DELIVERABLES ============================== -->
+<section id="deliverables">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num reveal">04 · Deliverables</span>
+      <h2 class="sec-title display reveal" data-delay="1">What we ship, <span class="dim">every week.</span></h2>
+    </div>
+    <div class="deliver-grid">
+      <article class="channel reveal">
+        <div class="channel-head">
+          <div class="channel-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.6h3.5l-7.6 8.7L23.7 22h-7l-5.5-7.2L4.9 22H1.4l8.1-9.3L.7 1.6h7.2l5 6.6 5-6.6Zm-1.2 18.3h1.9L6.4 3.6H4.3l13.4 16.3Z"/></svg>
+          </div>
+          <div><h3>X</h3><div class="sub">Build audience · Grow pipeline</div></div>
+        </div>
+        <ul>
+          <li>Long-form articles</li>
+          <li>Threads and viral hooks</li>
+          <li>Daily tweets and commentary</li>
+          <li>Reply strategy on sentinel accounts</li>
+        </ul>
+      </article>
+      <article class="channel reveal" data-delay="1">
+        <div class="channel-head">
+          <div class="channel-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+          </div>
+          <div><h3>LinkedIn</h3><div class="sub">Build authority · Grow pipeline</div></div>
+        </div>
+        <ul>
+          <li>Long-form founder posts</li>
+          <li>Carousels and narrative breakdowns</li>
+          <li>Thought leadership cadence</li>
+          <li>Comment strategy in your ICP</li>
+        </ul>
+      </article>
+    </div>
+    <p class="deliver-note reveal">All ghostwritten in your voice. <b>Reviewed by you. Published daily.</b></p>
+  </div>
+</section>
+
+<!-- ============================== 05 · WHO IT'S FOR ============================== -->
+<section id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num reveal">05 · Who it's for</span>
+      <h2 class="sec-title display reveal" data-delay="1">Built for founders <span class="dim">who need reach.</span></h2>
+    </div>
+    <div class="who-grid">
+      <article class="who reveal">
+        <span class="tag">B2B</span>
+        <h3>B2B founders</h3>
+        <p>You have pipeline targets. You don't have time to post. We turn your expertise into a content machine that fills the top of funnel.</p>
+      </article>
+      <article class="who reveal" data-delay="1">
+        <span class="tag">SaaS</span>
+        <h3>SaaS founders</h3>
+        <p>Launches, product cycles, category building. We ghostwrite the narrative that carries the product, and its founder, through all of it.</p>
+      </article>
+      <article class="who reveal" data-delay="2">
+        <span class="tag">AI</span>
+        <h3>AI founders</h3>
+        <p>You're shipping into a market moving faster than traditional agencies can keep up with. We were built for this pace.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center">Ready when you are</div>
+    <h2 class="reveal" data-delay="1">Own your niche. <span class="grad">Let the AI do the work.</span></h2>
+    <p class="reveal" data-delay="2">30-minute discovery. We'll audit your current presence and map out what we'd ship for you in the first 30 days.</p>
+    <div class="cta-actions reveal" data-delay="3">
+      <a class="btn btn-primary" href="https://cal.com/thought-pilot-da4joh/30min" target="_blank" rel="noopener">Book a call
+        <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="https://x.com/nagashares" target="_blank" rel="noopener">DM on X
+        <svg class="arw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <a class="footer-brand" href="#top">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="11" y="13" width="11" height="10" fill="currentColor"/>
+          <rect x="22" y="13" width="10" height="30" fill="currentColor"/>
+          <rect x="36" y="13" width="10" height="10" fill="currentColor"/>
+          <rect x="22" y="31" width="10" height="23" fill="#8e7cd8"/>
+          <path fill="#8e7cd8" fill-rule="evenodd" d="M32 31h11a8 8 0 0 1 0 16H32V31Zm8 6h3a2 2 0 0 1 0 4h-3v-4Z"/>
+        </svg>
+        <span>Thought Pilot</span>
+      </a>
+      <nav class="footer-links">
+        <a href="#approach">Approach</a>
+        <a href="#stack">Stack</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="https://x.com/nagashares" target="_blank" rel="noopener">X</a>
+        <a href="mailto:hello@thought-pilot.com">Email</a>
+        <a href="#top">Top ↑</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>Thought Pilot · AI-native content studio · © 2026</span>
+      <span>Ghostwritten in your voice. Shipped daily.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- sticky nav bg ---- */
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>24);
+onScroll();addEventListener('scroll',onScroll,{passive:true});
+
+/* ---- mobile menu ---- */
+const toggle=document.getElementById('navToggle');
+const links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>{
+  const open=links.classList.toggle('open');
+  toggle.classList.toggle('open',open);
+});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  links.classList.remove('open');toggle.classList.remove('open');
+}));
+
+/* ---- reveal on scroll ---- */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- active nav link ---- */
+const sections=['approach','stack','deliverables','contact'].map(id=>document.getElementById(id)).filter(Boolean);
+const navMap={};
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>{navMap[a.getAttribute('href').slice(1)]=a;});
+const spy=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      Object.values(navMap).forEach(a=>a.classList.remove('active'));
+      const a=navMap[e.target.id];if(a)a.classList.add('active');
+    }
+  });
+},{threshold:.4});
+sections.forEach(s=>spy.observe(s));
+
+/* ---- stat count-up ---- */
+const counted=new WeakSet();
+const countIO=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting||counted.has(e.target))return;
+    counted.add(e.target);
+    const el=e.target,target=+el.dataset.count,suffix=el.dataset.suffix||'';
+    let cur=0,start=null,dur=1300;
+    const step=(t)=>{
+      if(!start)start=t;const p=Math.min((t-start)/dur,1);
+      const eased=1-Math.pow(1-p,3);
+      el.textContent=Math.round(eased*target)+suffix;
+      if(p<1)requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+},{threshold:.6});
+document.querySelectorAll('.num[data-count]').forEach(el=>countIO.observe(el));
+</script>
+</body>
+</html>
