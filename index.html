@@ -74,7 +74,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 .spaced-label .lead{color:var(--ink)}
 .spaced-label .tail{color:var(--purple)}
-.spaced-label .word{display:inline-flex;letter-spacing:.14em}
+.spaced-label .word{display:inline-block;letter-spacing:.14em}
 
 /* ---------- buttons ---------- */
 .btn{
@@ -331,7 +331,22 @@ section{position:relative;padding:clamp(72px,11vh,150px) 0}
 .reveal{opacity:0;transform:translateY(30px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
 .reveal.in{opacity:1;transform:none;filter:none}
 [data-delay="1"]{transition-delay:.08s}[data-delay="2"]{transition-delay:.16s}[data-delay="3"]{transition-delay:.24s}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none;filter:none}html{scroll-behavior:auto}}
+
+/* ---------- signature motion: masked wipe-in for words & chars ---------- */
+.msk{display:inline-block;overflow:hidden;vertical-align:top;line-height:1;padding-bottom:.12em;margin-bottom:-.12em}
+.msk > i{display:inline-block;font-style:normal;transform:translateY(120%);opacity:0;transition:transform 1s var(--ease),opacity .8s var(--ease)}
+.msk.in > i{transform:none;opacity:1}
+.magnetic{will-change:transform}
+.stack-arrow.spin{transform:rotate(90deg)}
+.viz{will-change:transform}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none;filter:none}
+  .msk > i{transform:none!important;opacity:1!important}
+  .viz{transform:none!important}
+  html{scroll-behavior:auto}
+}
 
 /* ---------- responsive ---------- */
 @media(max-width:1000px){
@@ -392,7 +407,7 @@ section{position:relative;padding:clamp(72px,11vh,150px) 0}
 <header class="hero">
   <div class="wrap">
     <div class="eyebrow reveal">End-to-end content execution</div>
-    <h1 class="display reveal" data-delay="1">Engineered <span class="grad">to compound.</span></h1>
+    <h1 class="display hero-split">Engineered <span class="grad">to compound.</span></h1>
     <div class="hero-row">
       <p class="hero-sub reveal" data-delay="2">End-to-end content execution for <b>B2B, SaaS, and AI founders</b> on X and LinkedIn. Ghostwritten in your voice. Shipped daily. While you build the company.</p>
       <div class="reveal" data-delay="2">
@@ -790,6 +805,89 @@ document.querySelectorAll('#faq .faq-item').forEach(item=>{
     if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}
   });
 });
+
+/* ==========================================================================
+   SIGNATURE MOTION — masked wipe-in headings, magnetic buttons, parallax
+   ========================================================================== */
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function makeMask(text,cls){
+  const m=document.createElement('span');m.className='msk';
+  const i=document.createElement('i');i.textContent=text;if(cls)i.className=cls;
+  m.appendChild(i);return m;
+}
+/* split an element's text (and any inline child spans) into word masks */
+function splitWords(el){
+  const masks=[],frag=document.createDocumentFragment();
+  el.childNodes.forEach(node=>{
+    const cls=node.nodeType===1?node.className:'';
+    (node.textContent||'').split(/(\s+)/).forEach(tok=>{
+      if(tok==='')return;
+      if(/^\s+$/.test(tok)){frag.appendChild(document.createTextNode(tok));return;}
+      const m=makeMask(tok,cls);frag.appendChild(m);masks.push(m);
+    });
+  });
+  el.textContent='';el.appendChild(frag);return masks;
+}
+/* split the .word spans of a spaced label into per-character masks */
+function splitChars(label){
+  const masks=[];
+  label.querySelectorAll('.word').forEach(word=>{
+    const chars=word.textContent.split('');word.textContent='';
+    chars.forEach(ch=>{const m=makeMask(ch);word.appendChild(m);masks.push(m);});
+  });
+  return masks;
+}
+
+/* hero headline — wipe up on load, staggered per word */
+const heroH1=document.querySelector('.hero-split');
+if(heroH1){
+  const words=splitWords(heroH1);
+  requestAnimationFrame(()=>words.forEach((m,i)=>{m.style.transitionDelay=(0.12+i*0.07)+'s';m.classList.add('in');}));
+}
+
+/* spaced-caps section labels — reveal char by char on scroll */
+document.querySelectorAll('.spaced-label').forEach(label=>{
+  const masks=splitChars(label);
+  const arrow=label.querySelector('.stack-arrow');
+  const ob=new IntersectionObserver((es)=>{es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    masks.forEach((m,i)=>{m.style.transitionDelay=(i*0.035)+'s';m.classList.add('in');});
+    if(arrow)setTimeout(()=>arrow.classList.add('spin'),masks.length*35+250);
+    ob.disconnect();
+  });},{threshold:.35});
+  ob.observe(label);
+});
+
+/* magnetic buttons — gently follow the cursor, snap back on leave */
+if(!reduceMotion){
+  document.querySelectorAll('.btn, .header-cta').forEach(el=>{
+    el.classList.add('magnetic');
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect();
+      const mx=(e.clientX-r.left-r.width/2)*0.28, my=(e.clientY-r.top-r.height/2)*0.45;
+      el.style.transform=`translate(${mx}px,${my}px)`;
+    });
+    el.addEventListener('mouseleave',()=>{el.style.transform='';});
+  });
+}
+
+/* parallax — media gradient blocks drift as you scroll */
+if(!reduceMotion){
+  const vizEls=[...document.querySelectorAll('.viz')];
+  let ticking=false;
+  function parallax(){
+    ticking=false;const vh=innerHeight;
+    vizEls.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      if(r.bottom<-120||r.top>vh+120)return;
+      const prog=((r.top+r.height/2)-vh/2)/vh;
+      el.style.transform=`translateY(${prog*-28}px) scale(1.14)`;
+    });
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(parallax);}},{passive:true});
+  parallax();
+}
 </script>
 </body>
 </html>
