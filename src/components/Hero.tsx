@@ -4,6 +4,7 @@ import { useCountUp } from '../hooks/useCountUp';
 import { Reveal } from './Reveal';
 import { HeroHeadline } from './HeroHeadline';
 import { MagneticLink } from './MagneticLink';
+import { LiquidGlassLink } from './LiquidGlassLink';
 import { ArrowDown } from './icons';
 
 function StatBadge({ stat }: { stat: Stat }) {
@@ -39,15 +40,17 @@ export function Hero() {
 
           <Reveal delay={2}>
             <div className="hero-actions">
-              <MagneticLink
-                className="btn btn-purple"
+              <LiquidGlassLink
+                className="lg-cta lg-hero"
+                size="xxl"
+                tone="light"
                 href={site.calUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Book a call
                 <ArrowDown className="arw" />
-              </MagneticLink>
+              </LiquidGlassLink>
               <MagneticLink className="btn btn-line" href="#approach">
                 How we work
                 <ArrowDown className="arw" />

@@ -1,6 +1,7 @@
 import { site } from '../data/site';
 import { Reveal } from './Reveal';
 import { MagneticLink } from './MagneticLink';
+import { LiquidGlassLink } from './LiquidGlassLink';
 import { ArrowUpRight } from './icons';
 
 const marqueeWords = [
@@ -35,15 +36,17 @@ export function Cta() {
           the first 30 days.
         </Reveal>
         <Reveal className="cta-actions" delay={3}>
-          <MagneticLink
-            className="btn btn-purple"
+          <LiquidGlassLink
+            className="lg-cta on-dark lg-hero"
+            size="xxl"
+            tone="dark"
             href={site.calUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
             Book a call
             <ArrowUpRight className="arw" />
-          </MagneticLink>
+          </LiquidGlassLink>
           <MagneticLink
             className="btn btn-ghost-dark"
             href={site.xUrl}

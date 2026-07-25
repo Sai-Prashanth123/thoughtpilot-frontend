@@ -10,7 +10,10 @@ editorial agency layout and signature scroll/load motion.
 
 - **React 18** + **TypeScript** (strict)
 - **Vite 5** for dev server and build
-- Plain CSS design system (`src/styles/globals.css`) with design tokens — no UI framework
+- **Tailwind CSS v4** (utilities only — preflight disabled) + shadcn conventions
+  (`@/lib/utils`, `components/ui/`) powering the liquid-glass button component
+- Plain CSS design system (`src/styles/globals.css`) with design tokens and a
+  site-wide **glassmorphism** layer (ambient light-field + frosted surfaces)
 - Fonts (Bricolage Grotesque, Inter, JetBrains Mono) via Google Fonts `<link>`
 
 ## Getting started

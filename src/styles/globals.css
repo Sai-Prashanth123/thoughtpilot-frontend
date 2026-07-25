@@ -338,13 +338,134 @@ section { position: relative; padding: clamp(72px, 11vh, 150px) 0; }
 @media (max-width: 760px) {
   .nav {
     position: fixed; inset: 0 0 0 auto; width: min(82vw, 340px); flex-direction: column; align-items: flex-start; justify-content: center; gap: 26px;
-    background: var(--paper); padding: 44px; transform: translateX(100%); transition: transform 0.4s var(--ease); border-left: 1px solid var(--line);
+    background: rgba(244, 242, 236, 0.82); backdrop-filter: blur(22px) saturate(150%); -webkit-backdrop-filter: blur(22px) saturate(150%);
+    padding: 44px; transform: translateX(100%); transition: transform 0.4s var(--ease); border-left: 1px solid rgba(255, 255, 255, 0.6);
   }
   .nav.open { transform: none; }
-  .nav .header-cta { margin-top: 10px; }
+  .nav .lg-cta { margin-top: 10px; }
   .burger { display: flex; }
   .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .burger.open span:nth-child(2) { opacity: 0; }
   .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .hero-badges { gap: 26px; }
 }
+
+/* ==========================================================================
+   GLASSMORPHISM LAYER
+   A fixed ambient light-field of soft purple orbs sits behind the whole page,
+   and every card/surface is rebuilt as frosted glass that refracts it. Placed
+   last so it wins the cascade over the solid-surface defaults above.
+   ========================================================================== */
+
+/* Ambient light-field — fixed behind all content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -10vh -10vw;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(42vw 42vw at 12% 6%, rgba(142, 124, 216, 0.30), transparent 60%),
+    radial-gradient(40vw 40vw at 90% 20%, rgba(110, 86, 207, 0.24), transparent 62%),
+    radial-gradient(48vw 48vw at 72% 84%, rgba(168, 151, 238, 0.22), transparent 64%),
+    radial-gradient(38vw 38vw at 18% 94%, rgba(198, 182, 244, 0.20), transparent 64%);
+  filter: saturate(120%);
+}
+/* Fine grain so the frosted panes read as glass, not flat fills. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: radial-gradient(circle at 1px 1px, rgba(12, 12, 14, 0.05) 1px, transparent 0);
+  background-size: 4px 4px;
+}
+
+/* ---- light frosted surfaces (panels, loop stage, edge, channel) ---- */
+.panel,
+.loop-stage,
+.edge,
+.channel {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 0 0 1px rgba(142, 124, 216, 0.05),
+    0 24px 60px -36px rgba(46, 33, 92, 0.42);
+}
+.panel:hover,
+.edge:hover,
+.channel:hover {
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 34px 70px -34px rgba(46, 33, 92, 0.5);
+}
+/* the media half of a panel keeps its solid gradient — only tint the seam */
+.channel-head { border-bottom-color: rgba(255, 255, 255, 0.55); }
+.channel li { border-bottom-color: rgba(12, 12, 14, 0.08); }
+.tags a, .tags span { background: rgba(255, 255, 255, 0.35); border-color: rgba(255, 255, 255, 0.6); backdrop-filter: blur(6px); }
+
+/* the loop section rides on the ambient field rather than a flat paper-2 */
+.loop { background: transparent; }
+.ticker { background: rgba(234, 230, 219, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+
+/* ---- dark frosted surfaces (results, who) ---- */
+.dark-sec { position: relative; overflow: hidden; }
+.dark-sec > .wrap { position: relative; z-index: 1; }
+.dark-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(56vw 40vw at 82% -8%, rgba(142, 124, 216, 0.22), transparent 60%),
+    radial-gradient(50vw 42vw at -6% 108%, rgba(110, 86, 207, 0.18), transparent 60%);
+}
+.result,
+.who {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 30px 60px -40px rgba(0, 0, 0, 0.7);
+}
+.result:hover,
+.who:hover { border-color: rgba(168, 151, 238, 0.5); background: rgba(255, 255, 255, 0.08); }
+
+/* ---- glassy secondary buttons (primary CTAs use the liquid-glass component) ---- */
+.btn-line {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 10px 30px -20px rgba(46, 33, 92, 0.5);
+}
+.btn-line:hover { border-color: var(--purple); color: var(--purple); background: rgba(255, 255, 255, 0.55); }
+.btn-ghost-dark {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.btn-ghost-dark:hover { border-color: var(--purple-bright); color: var(--purple-bright); background: rgba(255, 255, 255, 0.1); }
+
+/* the header shell — a touch more glass depth */
+.header { background: rgba(244, 242, 236, 0.6); backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%); }
+.header.scrolled { background: rgba(244, 242, 236, 0.72); border-bottom-color: rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -24px rgba(46, 33, 92, 0.4); }
+
+/* liquid-glass CTA label sizing shared by button + link variants */
+.lg-cta { font-family: var(--font-sans); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--ink); }
+.lg-cta.on-dark { color: var(--dark-ink); }
+.lg-cta .arw { transition: transform 0.3s var(--ease); }
+.lg-cta:hover .arw { transform: translateX(3px); }
+.lg-header { font-size: 14px; }
+/* neutralise the nav's underline/colour treatment on the glass CTA */
+.nav a.lg-cta { color: var(--ink); }
+.nav a.lg-cta::after { content: none; }

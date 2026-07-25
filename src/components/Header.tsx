@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { navLinks, site } from '../data/site';
 import { useScrolled } from '../hooks/useScrolled';
 import { LogoMark, ArrowUpRight } from './icons';
-import { MagneticLink } from './MagneticLink';
+import { LiquidGlassLink } from './LiquidGlassLink';
 
 export function Header() {
   const scrolled = useScrolled();
@@ -23,8 +23,10 @@ export function Header() {
               {link.label}
             </a>
           ))}
-          <MagneticLink
-            className="header-cta"
+          <LiquidGlassLink
+            className="lg-cta lg-header"
+            size="lg"
+            tone="light"
             href={site.calUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -32,7 +34,7 @@ export function Header() {
           >
             Book a call
             <ArrowUpRight className="arw" width={14} height={14} />
-          </MagneticLink>
+          </LiquidGlassLink>
         </nav>
 
         <button
