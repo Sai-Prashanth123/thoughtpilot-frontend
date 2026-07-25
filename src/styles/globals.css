@@ -52,7 +52,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 body {
   background: var(--paper);
   color: var(--ink);
@@ -416,6 +416,13 @@ section { position: relative; padding: clamp(72px, 11vh, 150px) 0; }
   .appr-item { grid-template-columns: 1fr; gap: 14px; }
   .appr-num { font-size: 34px; }
 }
+@media (max-width: 900px) {
+  /* wrap the pipeline before it gets squeezed on tablets — 5-across at
+     ~140px/step is too tight to hold a node + title + detail line cleanly */
+  .pipeline { flex-wrap: wrap; justify-content: flex-start; gap: 24px 12px; }
+  .pipeline::before { display: none; }
+  .pipeline-step { flex: 0 0 auto; width: calc(33.33% - 8px); }
+}
 @media (max-width: 760px) {
   .nav {
     position: fixed; inset: 0 0 0 auto; width: min(82vw, 340px); flex-direction: column; align-items: flex-start; justify-content: center; gap: 26px;
@@ -428,11 +435,15 @@ section { position: relative; padding: clamp(72px, 11vh, 150px) 0; }
   .burger.open span:nth-child(2) { opacity: 0; }
   .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .hero-badges { gap: 26px; }
-  .pipeline { flex-wrap: wrap; justify-content: flex-start; gap: 24px 12px; }
-  .pipeline::before { display: none; }
-  .pipeline-step { flex: 0 0 auto; width: calc(33.33% - 8px); }
   .chat-panel { right: 20px; bottom: 88px; }
   .chat-launcher { right: 20px; bottom: 20px; }
+}
+@media (max-width: 480px) {
+  .pipeline-step { width: calc(50% - 6px); }
+  .badge { flex: 1 1 calc(50% - 12px); }
+  .channel-head { flex-wrap: wrap; row-gap: 12px; }
+  .channel-head .cadence { margin-left: 0; flex-basis: 100%; }
+  .who-not ul { gap: 14px; }
 }
 
 /* ==========================================================================
@@ -447,7 +458,7 @@ section { position: relative; padding: clamp(72px, 11vh, 150px) 0; }
 .cursor-dot svg { width: 20px; height: 20px; }
 body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button { cursor: none; }
 
-.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 300; }
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 300; transform: translateZ(0); }
 .scroll-progress-fill { height: 100%; width: 100%; background: var(--purple); transform-origin: left; transform: scaleX(0); }
 
 .btn:active, .header-cta:active { transform: scale(0.96); }
@@ -460,6 +471,7 @@ body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button 
   width: 56px; height: 56px; border-radius: var(--radius-sm);
   background: var(--ink); color: var(--paper); display: grid; place-items: center;
   box-shadow: var(--shadow-lg); transition: transform 0.3s var(--ease), background 0.3s;
+  transform: translateZ(0); will-change: transform;
 }
 .chat-launcher:hover { transform: translateY(-3px); background: var(--purple); }
 .chat-launcher svg { width: 26px; height: 26px; }
@@ -475,6 +487,7 @@ body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button 
   border: 1px solid var(--dark-line); box-shadow: var(--shadow-lg);
   backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%);
   animation: chat-in 0.3s var(--ease);
+  will-change: transform;
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .chat-panel { background: rgba(20, 20, 24, 0.97); }
