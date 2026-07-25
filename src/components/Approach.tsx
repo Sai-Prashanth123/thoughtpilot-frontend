@@ -1,5 +1,7 @@
 import { approach } from '../data/content';
 import { Reveal } from './Reveal';
+import { spotlightMove } from '../hooks/spotlight';
+import { ApproachIcon } from './icons';
 
 export function Approach() {
   return (
@@ -20,10 +22,23 @@ export function Approach() {
 
         <div className="approach-grid">
           {approach.map((item, i) => (
-            <Reveal key={item.step} className="appr-item" delay={([undefined, 1, 2] as const)[i]}>
-              <span className="step">{item.step}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
+            <Reveal
+              key={item.step}
+              as="article"
+              className="appr-item glow-hover"
+              delay={([undefined, 1, 2] as const)[i]}
+              onMouseMove={spotlightMove}
+            >
+              <div className="appr-marker">
+                <span className="appr-ico">
+                  <ApproachIcon name={item.icon} />
+                </span>
+                <span className="appr-num">{item.step.slice(0, 2)}</span>
+              </div>
+              <div className="appr-body">
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
             </Reveal>
           ))}
         </div>

@@ -1,8 +1,8 @@
 import { site } from './site';
 
-export type VizVariant = 'a' | 'b' | 'c';
-export type EdgeIconName = 'signal' | 'scoring' | 'voice' | 'loop';
 export type ChannelIconName = 'x' | 'linkedin';
+export type PanelIconName = 'operator' | 'isolated' | 'compound';
+export type ApproachIconName = 'craft' | 'fingerprint' | 'ascend';
 
 /* ---------- hero ---------- */
 export interface Stat {
@@ -15,7 +15,7 @@ export interface Stat {
 }
 
 export const stats: Stat[] = [
-  { value: '200M+', countTo: 200, suffix: 'M+', label: 'Impressions generated' },
+  { value: '200M+', countTo: 200, suffix: 'M+', label: 'Impressions across accounts we operate' },
   { value: '100+', countTo: 100, suffix: '+', label: '1M-view posts shipped' },
   { value: 'Daily', label: 'Output across X + LinkedIn' },
 ];
@@ -35,27 +35,31 @@ export interface ApproachItem {
   step: string;
   title: string;
   body: string;
+  icon: ApproachIconName;
 }
 
 export const approach: ApproachItem[] = [
   {
     step: '01 —',
-    title: 'Custom AI agents',
-    body: 'Ingestion, research, writing, and scoring all run on AI we built in-house. The output of a ten-person team, without the overhead of one.',
+    title: 'Built by operators, not vendors',
+    body: 'Agencies hire writers and hope for consistency. Tools hand you a blank prompt. We built the system in-house so a small team of operators can run accounts at a scale neither can match — and still own every word that ships.',
+    icon: 'craft',
   },
   {
     step: '02 —',
-    title: 'Private intelligence',
-    body: "Every account gets a dedicated knowledge base and its own agents — your voice, your market, and the formats winning this week.",
+    title: 'One system per client, not a shared prompt',
+    body: "Generic best-practice content reads generic. Every account runs on its own isolated setup — your voice, your competitors, your market — because content trained on someone else's niche never quite fits yours.",
+    icon: 'fingerprint',
   },
   {
     step: '03 —',
-    title: 'A loop that compounds',
-    body: "Every post, score, and result sharpens what comes next. The longer you're in, the better the writing gets.",
+    title: 'Built to compound, not to plateau',
+    body: "A ghostwriter gets you consistency. What we've built gets sharper with every post, because performance feeds back into the next draft. The longer you're in, the bigger the gap between you and whoever started later.",
+    icon: 'ascend',
   },
 ];
 
-/* ---------- 02 · stack panels ---------- */
+/* ---------- 02 · stack (tier grid) ---------- */
 export interface Panel {
   code: string;
   /** '\n' becomes a line break. */
@@ -63,37 +67,33 @@ export interface Panel {
   tags: string[];
   body: string;
   more: { label: string; href: string };
-  viz: VizVariant;
-  glyph: string;
+  icon: PanelIconName;
 }
 
 export const panels: Panel[] = [
   {
     code: 'S.01',
-    title: 'Custom AI agents,\nin-house algorithms',
-    tags: ['Ingestion agents', 'Research agents', 'Writing agents'],
-    body: 'Every part of our stack runs on AI we built: ingestion agents, research agents, writing agents, scoring algorithms. Operators set direction and own voice — the output of a ten-person team, without the overhead of one.',
+    title: 'An operator owns your account.\nAgents do the drafting.',
+    tags: ['Dedicated operator', 'Ingestion + writing agents', 'Draft review before it reaches you'],
+    body: "You get a named operator who sets direction, owns your voice, and reviews every draft before it reaches you — backed by agents that handle ingestion, research, and first drafts. The judgment stays human; the repetition doesn't.",
     more: { label: 'See what we ship', href: '#work' },
-    viz: 'a',
-    glyph: 'Ingestion → Writing',
+    icon: 'operator',
   },
   {
     code: 'S.02',
-    title: 'A private intelligence\nlayer per client',
-    tags: ['Knowledge base', 'Voice model', 'Competitor tracking'],
-    body: "Every account gets a dedicated knowledge base and its own set of agents. Your voice. Your market. The accounts you're competing with. The formats winning this week. We write against the current game, not generic best practices.",
-    more: { label: 'How the edge works', href: '#edge' },
-    viz: 'b',
-    glyph: 'Voice · Per client',
+    title: 'Nothing is shared\nacross accounts',
+    tags: ['Isolated per client', 'Competitor tracking', 'No shared prompts'],
+    body: "Your voice model, your competitor tracking, your content history — none of it touches another account. That isolation is what lets the writing sound like you instead of a template with your name swapped in.",
+    more: { label: 'How the loop works', href: '#loop' },
+    icon: 'isolated',
   },
   {
     code: 'S.03',
-    title: 'The stack compounds.\nSo does your lead.',
-    tags: ['Scoring', 'Feedback loop', 'Distribution'],
-    body: "Every post, every score, every result sharpens what comes next. The longer you're in, the better the writing gets. This is the loop agencies can't build and tools can't ship — the one that matters.",
-    more: { label: 'See the loop', href: '#loop' },
-    viz: 'c',
-    glyph: 'Scoring → Distribution',
+    title: 'Every post makes\nthe next one sharper',
+    tags: ['Weekly feedback', 'Scoring', 'Distribution'],
+    body: 'Every post that ships gets scored against how it actually performed, and that result feeds the next draft. Six months in, the account is writing against real performance data — not a static playbook.',
+    more: { label: 'See the results', href: '#results' },
+    icon: 'compound',
   },
 ];
 
@@ -103,7 +103,7 @@ export interface LoopStage {
   k: string;
   title: string;
   body: string;
-  viz: VizVariant;
+  detail: string;
 }
 
 export const loopStages: LoopStage[] = [
@@ -111,36 +111,36 @@ export const loopStages: LoopStage[] = [
     num: '01',
     k: 'Stage 01',
     title: 'Ingestion',
-    body: "Our scrapers and agents pull what's moving on-platform in real time — the hooks, formats, and patterns performing right now. Per niche. Per platform.",
-    viz: 'a',
+    body: "Agents pull what's moving on-platform right now — the hooks, formats, and patterns performing this week, refreshed daily, filtered to your specific niche and platform.",
+    detail: 'Refreshed daily · scoped to your niche',
   },
   {
     num: '02',
     k: 'Stage 02',
     title: 'Research',
-    body: 'Research agents build a picture of your market, your ICP, and the accounts you compete with, feeding a private intelligence layer unique to your account.',
-    viz: 'b',
+    body: 'Agents map your ICP, your positioning, and the accounts you actually compete with — not a generic industry report. That map is what every draft gets written against.',
+    detail: 'Your ICP + named competitor accounts',
   },
   {
     num: '03',
     k: 'Stage 03',
     title: 'Writing',
-    body: 'Writing agents draft against the current game in your voice model — your rhythm, your vocabulary, your take — not generic best practices.',
-    viz: 'c',
+    body: "First drafts are built from your voice model — pulled from your existing posts, calls, and the direction you set at onboarding — so the starting point already sounds like you, not a template.",
+    detail: 'Drafted from your voice model, not a prompt',
   },
   {
     num: '04',
     k: 'Stage 04',
     title: 'Scoring',
-    body: 'Every draft runs through our proprietary content algorithms and is scored against what is winning now. Weak posts never leave the studio.',
-    viz: 'a',
+    body: 'Every draft is scored against how comparable posts in your niche performed recently — hook strength, retention pattern, reply and share signal. Anything below the bar gets rewritten or killed before you ever see it.',
+    detail: 'Scored against recent in-niche performance',
   },
   {
     num: '05',
     k: 'Stage 05',
     title: 'Distribution',
-    body: 'Reviewed by you, then shipped daily across X and LinkedIn. Performance feeds back into the stack weekly, so the writing sharpens over time.',
-    viz: 'b',
+    body: 'You review and approve; approved drafts publish within 24 hours, daily across X and LinkedIn. Performance feeds back into scoring every week, so next week starts from a sharper baseline than this one.',
+    detail: '24h from approval to published',
   },
 ];
 
@@ -152,30 +152,17 @@ export interface Result {
 }
 
 export const results: Result[] = [
-  { kicker: 'Reach', big: '200M+', body: 'Impressions generated across X and LinkedIn for the founders we run.' },
-  { kicker: 'Breakout', big: '100+', body: 'Posts past a million views shipped — engineered, scored, and reviewed before they left the studio.' },
-  { kicker: 'Cadence', big: 'Daily', body: 'Output across both platforms, ghostwritten in your voice and published every day.' },
+  { kicker: 'Review', big: '100%', body: 'Every post is approved by you before it ships. Nothing publishes without your review — no exceptions.' },
+  { kicker: 'Turnaround', big: '24h', body: 'From your approval to published, across X and LinkedIn — no content calendar, no batching, no waiting.' },
+  { kicker: 'Cadence', big: 'Daily', body: 'Real daily output, not a monthly retainer drip — the loop only compounds if it keeps running.' },
 ];
 
-/* ---------- 05 · the edge ---------- */
-export interface Edge {
-  icon: EdgeIconName;
-  title: string;
-  body: string;
-}
-
-export const edges: Edge[] = [
-  { icon: 'signal', title: 'Signal', body: 'Our scrapers and algorithms track formats, hooks, and patterns performing right now. Per niche. Per platform.' },
-  { icon: 'scoring', title: 'Scoring', body: "Every draft runs through our proprietary content algorithms. Weak posts don't leave the studio." },
-  { icon: 'voice', title: 'Voice', body: 'A voice model per client. Your rhythm, your vocabulary, your take. Captured and reinforced.' },
-  { icon: 'loop', title: 'Loop', body: "Performance feeds back into the stack weekly. The longer you're with us, the sharper the writing." },
-];
-
-/* ---------- 06 · deliverables ---------- */
+/* ---------- 05 · deliverables ---------- */
 export interface Channel {
   icon: ChannelIconName;
   name: string;
   sub: string;
+  cadence: string;
   items: string[];
 }
 
@@ -184,17 +171,19 @@ export const channels: Channel[] = [
     icon: 'x',
     name: 'X',
     sub: 'Build audience · Grow pipeline',
+    cadence: '5–7 posts / week',
     items: ['Long-form articles', 'Threads and viral hooks', 'Daily tweets and commentary', 'Reply strategy on sentinel accounts'],
   },
   {
     icon: 'linkedin',
     name: 'LinkedIn',
     sub: 'Build authority · Grow pipeline',
+    cadence: '3–5 posts / week',
     items: ['Long-form founder posts', 'Carousels and narrative breakdowns', 'Thought leadership cadence', 'Comment strategy in your ICP'],
   },
 ];
 
-/* ---------- 07 · who it's for ---------- */
+/* ---------- 06 · who it's for ---------- */
 export interface Audience {
   tag: string;
   title: string;
@@ -207,7 +196,14 @@ export const audiences: Audience[] = [
   { tag: 'AI', title: 'AI founders', body: "You're shipping into a market moving faster than traditional agencies can keep up with. We were built for this pace." },
 ];
 
-/* ---------- 08 · faq ---------- */
+export const notFor: string[] = [
+  "Teams that need every post pre-cleared by legal before it ships",
+  'Brands that want a monthly drip, not a daily practice',
+  'Anyone looking for a ghostwriter with zero involvement — you still review and approve every post',
+  'Pre-product founders with no market or ICP defined yet',
+];
+
+/* ---------- 07 · faq ---------- */
 export interface Faq {
   q: string;
   a: string;

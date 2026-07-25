@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* dark: utilities key off an explicit .dark ancestor class rather than OS
+   preference — this site doesn't have a dark-mode toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --animate-aurora: aurora 60s linear infinite;
+}
+
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to { background-position: 350% 50%, 350% 50%; }
+}
+
+/* bare color vars referenced directly by AuroraBackground (--white, --blue-500, …) —
+   aliased onto Tailwind v4's built-in --color-* palette. */
+:root {
+  --white: var(--color-white);
+  --black: var(--color-black);
+  --transparent: transparent;
+  --blue-300: var(--color-blue-300);
+  --blue-400: var(--color-blue-400);
+  --blue-500: var(--color-blue-500);
+  --indigo-300: var(--color-indigo-300);
+  --violet-200: var(--color-violet-200);
+}

@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react';
-import type { EdgeIconName, ChannelIconName } from '../../data/content';
+import type { ApproachIconName, ChannelIconName, PanelIconName } from '../../data/content';
 
 /**
  * The Thought Pilot "TP" monogram. The upper marks inherit `currentColor`
@@ -14,6 +14,18 @@ export function LogoMark({ purple = '#8e7cd8', ...props }: SVGProps<SVGSVGElemen
       <rect x="36" y="13" width="10" height="10" fill="currentColor" />
       <rect x="22" y="31" width="10" height="23" fill={purple} />
       <path fill={purple} fillRule="evenodd" d="M32 31h11a8 8 0 0 1 0 16H32V31Zm8 6h3a2 2 0 0 1 0 4h-3v-4Z" />
+    </svg>
+  );
+}
+
+/** A simple friendly face — used as the chat widget's avatar. Not a photo of a real person. */
+export function FaceIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
+      <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
+      <path d="M8.5 14.5c1 1 2.2 1.5 3.5 1.5s2.5-.5 3.5-1.5" />
     </svg>
   );
 }
@@ -42,47 +54,75 @@ export function ArrowRight(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function SignalIcon(props: SVGProps<SVGSVGElement>) {
+function OperatorIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
-      <path d="M4 12a8 8 0 0 1 8-8M12 20a8 8 0 0 0 8-8" />
-      <circle cx="12" cy="12" r="2.5" />
-      <path d="M12 2v2M12 20v2" />
+      <circle cx="12" cy="8" r="3.2" />
+      <path d="M5 20a7 7 0 0 1 14 0" />
     </svg>
   );
 }
-function ScoringIcon(props: SVGProps<SVGSVGElement>) {
+function IsolatedIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
-      <path d="M3 12h4l3 8 4-16 3 8h4" />
+      <path d="M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6l-7-3Z" />
     </svg>
   );
 }
-function VoiceIcon(props: SVGProps<SVGSVGElement>) {
+function CompoundIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
-      <path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z" />
-      <path d="M6 11a6 6 0 0 0 12 0M12 18v3" />
-    </svg>
-  );
-}
-function LoopIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
-      <path d="M21 12a9 9 0 1 1-3-6.7M21 4v5h-5" />
+      <path d="M3 17 9 11l4 4 8-8" />
+      <path d="M15 6h6v6" />
     </svg>
   );
 }
 
-const edgeIcons: Record<EdgeIconName, (p: SVGProps<SVGSVGElement>) => JSX.Element> = {
-  signal: SignalIcon,
-  scoring: ScoringIcon,
-  voice: VoiceIcon,
-  loop: LoopIcon,
+const panelIcons: Record<PanelIconName, (p: SVGProps<SVGSVGElement>) => JSX.Element> = {
+  operator: OperatorIcon,
+  isolated: IsolatedIcon,
+  compound: CompoundIcon,
 };
 
-export function EdgeIcon({ name, ...props }: { name: EdgeIconName } & SVGProps<SVGSVGElement>) {
-  const Icon = edgeIcons[name];
+export function PanelIcon({ name, ...props }: { name: PanelIconName } & SVGProps<SVGSVGElement>) {
+  const Icon = panelIcons[name];
+  return <Icon {...props} />;
+}
+
+function CraftIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+    </svg>
+  );
+}
+function FingerprintIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
+      <path d="M12 11a3 3 0 0 1 3 3v2a3 3 0 0 1-6 0v-1" />
+      <path d="M8 9.5V16a4 4 0 0 0 8 0v-6" />
+      <path d="M5 8v8a7 7 0 0 0 14 0V8" />
+    </svg>
+  );
+}
+function AscendIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
+      <path d="M4 20V14M10 20V9M16 20V4" />
+      <path d="M3 20h18" />
+    </svg>
+  );
+}
+
+const approachIcons: Record<ApproachIconName, (p: SVGProps<SVGSVGElement>) => JSX.Element> = {
+  craft: CraftIcon,
+  fingerprint: FingerprintIcon,
+  ascend: AscendIcon,
+};
+
+export function ApproachIcon({ name, ...props }: { name: ApproachIconName } & SVGProps<SVGSVGElement>) {
+  const Icon = approachIcons[name];
   return <Icon {...props} />;
 }
 

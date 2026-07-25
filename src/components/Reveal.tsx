@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from 'react';
+import type { ElementType, MouseEvent, ReactNode } from 'react';
 import { useReveal } from '../hooks/useReveal';
 
 interface RevealProps {
@@ -9,13 +9,14 @@ interface RevealProps {
   className?: string;
   children?: ReactNode;
   style?: React.CSSProperties;
+  onMouseMove?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 /**
  * Renders its children as the given element with the `.reveal` class and wires
  * up the intersection observer that toggles `.in` on first view.
  */
-export function Reveal({ as, delay, className, children, style }: RevealProps) {
+export function Reveal({ as, delay, className, children, style, onMouseMove }: RevealProps) {
   // Polymorphic + callback-ref: cast keeps the JSX ergonomic without `any` leaking out.
   const Comp = (as ?? 'div') as ElementType;
   const ref = useReveal();
@@ -25,6 +26,7 @@ export function Reveal({ as, delay, className, children, style }: RevealProps) {
       className={['reveal', className].filter(Boolean).join(' ')}
       data-delay={delay}
       style={style}
+      onMouseMove={onMouseMove}
     >
       {children}
     </Comp>

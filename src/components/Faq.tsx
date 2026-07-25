@@ -10,7 +10,7 @@ export function Faq() {
       <div className="wrap">
         <div className="sec-head">
           <Reveal as="span" className="sec-num">
-            08 · FAQs
+            07 · FAQs
           </Reveal>
           <Reveal as="h2" className="sec-title display" delay={1}>
             The questions

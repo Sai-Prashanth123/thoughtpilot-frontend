@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { loopStages } from '../data/content';
-import { useParallax } from '../hooks/useParallax';
 import { Reveal } from './Reveal';
+import { spotlightMove } from '../hooks/spotlight';
 
 const AUTO_ADVANCE_MS = 5000;
 
 export function Loop() {
   const [current, setCurrent] = useState(0);
   const [resetKey, setResetKey] = useState(0);
-  const vizRef = useParallax<HTMLDivElement>();
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -39,28 +38,31 @@ export function Loop() {
           </Reveal>
         </div>
 
-        <Reveal className="loop-nav" delay={1}>
+        <Reveal className="pipeline" delay={1}>
           {loopStages.map((s, i) => (
             <button
               key={s.num}
-              className={i === current ? 'active' : undefined}
+              className={`pipeline-step${i === current ? ' active' : ''}`}
               onClick={() => select(i)}
             >
-              {s.num} · {s.title}
+              <span className="pipeline-node">{s.num}</span>
+              <span className="pipeline-title">{s.title}</span>
+              <span className="pipeline-detail">{s.detail}</span>
+              {i === current && (
+                <span key={current} className="pipeline-progress">
+                  <span
+                    className="pipeline-progress-fill"
+                    style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }}
+                  />
+                </span>
+              )}
             </button>
           ))}
         </Reveal>
 
-        <Reveal className="loop-stage" delay={2}>
-          <div className="loop-media">
-            <div ref={vizRef} className={`viz viz-${stage.viz}`} aria-hidden="true" />
-            <div className="num">{stage.num}</div>
-          </div>
-          <div className="loop-content">
-            <div className="k">{stage.k}</div>
-            <h3>{stage.title}</h3>
-            <p>{stage.body}</p>
-          </div>
+        <Reveal key={stage.num} className="loop-panel glow-hover" delay={2} onMouseMove={spotlightMove}>
+          <div className="k">{stage.k}</div>
+          <p>{stage.body}</p>
         </Reveal>
       </div>
     </section>

@@ -1,10 +1,11 @@
 import { channels, type Channel } from '../data/content';
 import { Reveal } from './Reveal';
 import { ChannelIcon } from './icons';
+import { spotlightMove } from '../hooks/spotlight';
 
 function ChannelCard({ channel, delay }: { channel: Channel; delay?: 1 }) {
   return (
-    <Reveal as="article" className="channel" delay={delay}>
+    <Reveal as="article" className="channel glow-hover" delay={delay} onMouseMove={spotlightMove}>
       <div className="channel-head">
         <div className="channel-badge">
           <ChannelIcon name={channel.icon} />
@@ -13,6 +14,7 @@ function ChannelCard({ channel, delay }: { channel: Channel; delay?: 1 }) {
           <h3>{channel.name}</h3>
           <div className="sub">{channel.sub}</div>
         </div>
+        <div className="cadence">{channel.cadence}</div>
       </div>
       <ul>
         {channel.items.map((item) => (
@@ -29,7 +31,7 @@ export function Deliverables() {
       <div className="wrap">
         <div className="sec-head">
           <Reveal as="span" className="sec-num">
-            06 · Deliverables
+            05 · Deliverables
           </Reveal>
           <Reveal as="h2" className="sec-title display" delay={1}>
             What we ship, <span className="dim">every week.</span>
